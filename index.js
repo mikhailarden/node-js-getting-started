@@ -7,8 +7,8 @@ const app = express();
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 
-const client_key = 'fakeToken',
-    client_pass = 'nonFake';
+const client_key = 'fakeToken';
+const client_pass = 'nonFake';
 
 express()
     .use(express.static(path.join(__dirname, 'public')))
