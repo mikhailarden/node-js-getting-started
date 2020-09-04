@@ -11,6 +11,4 @@ express()
     .listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
 
-app.get('/cart_script.js', (req, res) => {
-    res.sendFile('./public/cart_script.js', { root: __dirname });
-});
+console.log('Server listening on port 9000');

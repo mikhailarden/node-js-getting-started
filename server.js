@@ -1,9 +1,18 @@
-const http = require('http');
+// grab express
+var express = require("express");
 
-http.createServer(function(req, res) {
-    // server code
-    console.log(`${req.method} ${req.url}`);
-    res.end('hello world!');
-}).listen(9000);
+// create an express app
+var app = express();
 
-console.log('Server listening on port 9000');
+// CONFIGURE THE APP
+// ==================================================
+// tell node where to look for site resources
+app.use('/', express.static(__dirname + '/public'));
+// create an express route for a homepage
+// http://localhost:8080/
+app.get('/cart_script.js', function(req, res) {
+    res.sendfile(__dirname + '/public/cart_function.js');
+});
+
+app.listen(8080);
+console.log('Server has started');

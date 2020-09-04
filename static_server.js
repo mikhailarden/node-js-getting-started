@@ -48,7 +48,7 @@ http.createServer(function(req, res) {
 
         // if is a directory, then look for index.html
         if (fs.statSync(pathname).isDirectory()) {
-            pathname += '/public/cart_function.js';
+            pathname += 'cart_function.js';
         }
 
         // read file from file system
