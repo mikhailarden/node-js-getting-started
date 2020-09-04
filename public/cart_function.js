@@ -10,11 +10,11 @@
 
 
 const config = {
-    apiKey: <%= token %>,
+    apiKey: client_key,
     authDomain: 'https://comfortgroup.myshopify.com/',
     cartUrl: 'https://comfortgroup.myshopify.com/cart.json',
-    apiPass: <%= token %>,
-    orderAuth: <%= token %>,
+    apiPass: client_key,
+    orderAuth: client_key,
 };
 
 /*======================
