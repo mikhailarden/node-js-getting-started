@@ -8,8 +8,9 @@ express()
     .set('views', path.join(__dirname, 'views'))
     .set('view engine', 'ejs')
     .get('/', (req, res) => res.render('pages/index'))
-    .get('/cart.js', (req, res) => res.sendfile(__dirname + '/public/cart_function.js'))
+    .get('/cart.js', (req, res) => res.sendFile(__dirname + '/public/cart_function.js'))
     .listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
+require('dotenv').config()
 
 console.log('Server listening on port 9000');
