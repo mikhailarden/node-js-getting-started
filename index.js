@@ -4,28 +4,23 @@ const PORT = process.env.PORT || 5000
 const app = express();
 
 
-
+const client_key = 'fakeToken';
+const client_pass = 'nonFake';
+const order_auth = 'nonFake';
 
 express()
-
-    const client_key = 'fakeToken';
-    const client_pass = 'nonFake';
-    const order_auth = 'nonFake;
-        
-    .use(express.static(path.join(__dirname, 'public')))
-    .set('views', path.join(__dirname, 'views'))
-    .set('view engine', 'ejs')
-    .get('/cart.js', (req, res) => res.sendFile(__dirname + '/public/cart_function.js'))
-    
-    .get('/production/cart.js', (req, res) => {
-        res.render('/public/cart_function.js', {client_key : client_key});
-    })
-    .post("/production/cart_function.js", (req, res) => {
-        var key = req.body.key;
-        var newKey = {key: key};
-        key.push(newKey);
-        res.redirect("/production/cart_function.js");
-    })
+    .use(express.static(path.join(__dirname, 'public')))
+    .set('views', path.join(__dirname, 'views'))
+    .set('view engine', 'ejs')
+    .get('/cart.js', (req, res) => res.sendFile(__dirname + '/public/cart_function.js'))
+     .post("/cart.js", (req, res) => {
+                var key = req.body.key;
+                var newKey = {key: key};
+                key.push(newKey);
+                console.log("key")
+                res.redirect("/cart.js");
+            })
+    .listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
 require('dotenv').config()
 
