@@ -10,7 +10,7 @@
 
 
 const config = {
-    apiKey: "<%= key %>,
+    apiKey: "<%= key %>",
     authDomain: 'https://comfortgroup.myshopify.com/',
     cartUrl: 'https://comfortgroup.myshopify.com/cart.json',
     apiPass: "<%= pass %>",
