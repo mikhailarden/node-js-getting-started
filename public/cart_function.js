@@ -32,6 +32,9 @@ Function that:
 =============*/
 
 $(function() {
+
+console.log(apiKey)
+
     $(".no_update_possible input").hide();
 
     var dev_mode = 'false',
