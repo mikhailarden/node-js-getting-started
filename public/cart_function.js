@@ -240,14 +240,14 @@ $(function() {
                     } else {
                         $('.modal-region--1').addClass('display_modal');
                         var varTitle = dateProduct.variants[i].title;
-                        window.removeItemById(dateProduct.variants[i].id);
+                        CartJS.removeItemById(dateProduct.variants[i].id);
                         $('.delivery_instrunctions').text('Please select another date below.').prepend('<p style="color:#ff5000 ">Uh-oh! We no longer have any delivery dates for ' + prodTitle + ' ' + varTitle + '.</p>')
                     }
                 }
 
-                window.clearAttributes(); // clear before we set
+                CartJS.clearAttributes(); // clear before we set
 
-                window.setAttributes({
+                CartJS.setAttributes({
                     "Delivery date": "" + prodTitle + " " + dateProduct.variants[i].title + ""
                 });
 
@@ -257,7 +257,7 @@ $(function() {
     }
 
 
-    $(window).on("click", ".cs_checkout_button ", function(event) {
+    $(document).on("click", ".cs_checkout_button ", function(event) {
         event.preventDefault();
         $(this).text('Preparing Cart...');
         $(this).attr('disbaled', 'disabled');
