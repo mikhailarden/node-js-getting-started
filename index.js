@@ -4,9 +4,6 @@ const PORT = process.env.PORT || 5000
 const app = express();
 
 
-app.engine('html', require('ejs').renderFile);
-app.set('view engine', 'html');
-
 const client_key = 'fakeToken';
 const client_pass = 'nonFake';
 
