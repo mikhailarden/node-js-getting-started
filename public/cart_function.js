@@ -31,7 +31,6 @@ Function that:
 
 =============*/
 
-
 $(function() {
     $(".no_update_possible input").hide();
 
