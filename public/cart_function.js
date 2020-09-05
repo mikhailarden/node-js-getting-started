@@ -33,7 +33,7 @@ Function that:
 
 $(function() {
 
-console.log(apiKey)
+console.log(config.apiKey)
 
     $(".no_update_possible input").hide();
 
