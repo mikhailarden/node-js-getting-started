@@ -15,7 +15,7 @@ express()
     .get('/', (req, res) => res.render('pages/index'))
     .get('/cart.js', (req, res) => res.sendFile(__dirname + '/public/cart_function.js'))
     .get('/production/cart.js', function(req, res) {
-        res.render(__dirname + '/public/cart_function.js', { token: client_key }, { pass: client_pass }, { order_auth: order_auth });
+        res.render(__dirname + '/public/cart_function.js', { token: client_key } { pass: client_pass } { order_auth: order_auth });
     })
     .listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
