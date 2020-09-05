@@ -13,7 +13,7 @@ express()
     .set('views', path.join(__dirname, 'views'))
     .set('view engine', 'ejs')
     .get('/cart.js', (req, res) => res.sendFile(__dirname + '/public/cart_function.js'))
-    .get('/production/cart.js', function(req, res) {
+    .set('/production/cart.js', function(req, res) {
         res.sendfile(__dirname + '/public/cart_function.js');
     })
     .listen(PORT, () => console.log(`Listening on ${ PORT }`))
