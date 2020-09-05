@@ -16,7 +16,7 @@ express()
         const client_pass = 'nonFake';
         const order_auth = 'nonFake';
 
-        res.render('cart_function', {client_key});
+        res.render('/public/cart_function.js', {client_key});
     })
     .listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
