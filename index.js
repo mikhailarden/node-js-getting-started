@@ -14,10 +14,10 @@ express()
     .set('view engine', 'ejs')
     .get('/cart.js', (req, res) => res.sendFile(__dirname + '/public/cart_function.js'))
     .get('/production/cart.js', function(req, res) {
-        res.render(__dirname + '/public/cart_function.js', { token: client_key }, { pass: client_pass }, { order_auth: order_auth });
+        res.sendfile(__dirname + '/public/cart_function.js');
     })
     .listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
 require('dotenv').config()
 
-console.log('Server listening on port 9000 test t');
+console.log('Server listening on port 9000 test');
