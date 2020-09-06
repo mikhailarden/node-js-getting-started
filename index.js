@@ -77,7 +77,7 @@ console.log('Page is active')
     var returnjson;
     draftOrder(lineJSON)
     
-    res.send(returnjson)
+    res.send('success')
     res.end(req.cookies);
 })
 
