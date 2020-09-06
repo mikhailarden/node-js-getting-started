@@ -41,9 +41,6 @@ function draftOrder(lineJSON) {
         },
         "data": JSON.stringify({ "draft_order": { "line_items": lineJSON } }),
     };
-    $.ajax(settings).done(function (response) {
-       console.log(response)
-      });
 }
 
 var port = 8000;
