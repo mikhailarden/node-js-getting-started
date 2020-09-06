@@ -110,8 +110,9 @@ console.log('Page is active')
     res.end(req.cookies);
 })
 .post(function(req, res) {
-    var product_id = req;
-    productRead(product_id)
+    var product_id = req.product_id;
+    console.log(req)
+    // productRead(product_id)
     res.end(req.cookies);
 })
 
