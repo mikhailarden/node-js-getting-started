@@ -65,6 +65,13 @@ app.use(cors()); // Enables CORS
 app.use(logger); //Tells the app to send all requests through the 'logger' function
 app.use(express.static('/public')); //Tells the app to serve static files from ./public_html/
 app.use(express.json());
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", '*');
+    res.header("Access-Control-Allow-Credentials", true);
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
+    next();
+});
 
 //Dynamic get handler
 app.route('/draft_order')
@@ -77,8 +84,14 @@ console.log('Page is active')
 .post(function(req, res) {
     var lineJSON = req.body;
     var returnjson;
-    draftOrder(lineJSON,returnjson)  => res.send(returnjson)
+    draftOrder(lineJSON,returnjson)
+    
+    $.when(draftOrder(lineJSON,returnjson)).then(function(){
+        res.send(returnjson)
     res.end(req.cookies);
+    })
+    
+    
 })
 
 
