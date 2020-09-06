@@ -110,7 +110,7 @@ console.log('Page is active')
     res.end(req.cookies);
 })
 .post(function(req, res) {
-    var product_id = req.body;
+    var product_id = req;
     productRead(product_id)
     res.end(req.cookies);
 })
