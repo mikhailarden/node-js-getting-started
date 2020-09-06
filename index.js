@@ -8,6 +8,7 @@ const express = require('express'); //Require the Express Module
 const cors = require('cors') // Cors
 const PORT = process.env.PORT || 5000;
 const $ = require("jquery");
+var axios = require('axios');
 
 // Config modules
 
@@ -17,7 +18,7 @@ var apiVersion = "2020-07";
 // API Config
     
     var apiPass = process.env.BASIC_AUTH;
-    var orderAuth = process.env.CLIENT_PASS;
+    var clientPass = process.env.CLIENT_PASS;
     
     
 
@@ -30,17 +31,26 @@ function logger(req, res, next) {
 
 // Draft Order function
 function draftOrder(lineJSON) {
-    var settings = {
-        "url": storeURL+"api/"+apiVersion+"/draft_orders.json",
-        "method": "POST",
-        "headers": {
-            "X-Shopify-Access-Token": apiPass,
-            "Content-Type": "application/json",
-            "Authorization": orderAuth,
-
-        },
-        "data": JSON.stringify({ "draft_order": { "line_items": lineJSON } }),
+    var data = JSON.stringify({"draft_order":{"line_items":[lineJSON]}});
+    var config = {
+      method: 'post',
+      url: storeURL+'api/'+apiVersion+'/draft_orders.json',
+      headers: { 
+        'X-Shopify-Access-Token': clientPass, 
+        'Content-Type': 'application/json', 
+        'Authorization': apiPass
+      },
+      data : data
     };
+    
+    axios(config)
+    .then(function (response) {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+    
 }
 
 var port = 8000;
@@ -60,7 +70,6 @@ app.route('/draft_order')
 console.log('Page is active')
     res.setHeader('Content-Type', 'text/plain'); //Tell the client you are sending plain text
     res.end(req.cookies);
-    console.log(process.env.BASIC_AUTH)
    
 })
 .post(function(req, res) {
