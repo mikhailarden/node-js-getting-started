@@ -43,12 +43,11 @@ function draftOrder(lineJSON) {
     
     axios(config)
     .then(function (response) {
-        res.send(response.data)
+        returnjson = response;
     })
     .catch(function (error) {
       console.log(error);
-      res.send(error)
-      res.end(error);
+      returnjson = response;
     });
 }
 
@@ -74,9 +73,10 @@ console.log('Page is active')
 })
 .post(function(req, res) {
     var lineJSON = req.body;
+    var returnjson;
     draftOrder(lineJSON)
-    console.log(req.body);
-    console.log('This is the full:' + req);
+    
+    res.send(returnjson)
     res.end(req.cookies);
 })
 
