@@ -48,14 +48,9 @@ var app = express(); //Initialize the app
 
 
 //Configure the settings of the app
-app.configure(function () {
-    app.use(cors()); // Enables CORS
-    app.use(express.bodyParser()); //Parses the POST data for each request
-    app.use(express.cookieParser()); //Parses the Cookie data for each request
-    app.use(logger); //Tells the app to send all requests through the 'logger' function
-    app.use(app.router); //Tells the app to use the router
-    app.use(express.static('/public')); //Tells the app to serve static files from ./public_html/
-});
+app.use(cors()); // Enables CORS
+app.use(logger); //Tells the app to send all requests through the 'logger' function
+app.use(express.static('/public')); //Tells the app to serve static files from ./public_html/
 
 //Example of a dynamic get handler
 app.get('/draft_order', function(req, res) {
