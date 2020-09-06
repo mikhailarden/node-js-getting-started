@@ -68,6 +68,7 @@ console.log('Page is active')
     var lineJSON = req.body;
     draftOrder(lineJSON)
     console.log(req.body);
+    console.log('This is the full:' + req.body);
     res.end(req.cookies);
 })
 
