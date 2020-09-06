@@ -1,38 +1,77 @@
-const express = require('express')
-const path = require('path')
-const PORT = process.env.PORT || 5000
-const app = express();
+/***********************************
+*Node JS & Express JS server for Shopify API
+*Author: Mikhail Arden
+***********************************/
+
+//Load node.js modules
+var express = require('express'); //Require the Express Module
+var cors = require('cors') // Cors
+
+// Config modules
+
+var storeURL = "https://comfortgroup.myshopify.com/admin/";
+var apiVersion = "2020-07";
+
+// API Config
+    
+    var apiPass = process.env.BASIC_AUTH;
+    var orderAuth = process.env.CLIENT_PASS;
 
 
- const client_key = process.env.CLIENT_KEY;
-const client_pass = process.env.CLIENT_PASS;
-const order_auth = process.env.BASIC_AUTH;
+//Runs every time a request is recieved
+function logger(req, res, next) {
+    console.log('Request from: ' + req.ip + ' For: ' + req.path); //Log the request to the console
+    next(); //Run the next handler (IMPORTANT, otherwise your page won't be served)
+}
 
-express()
-.use(express.static(path.join(__dirname, 'public')))
-.set('views', path.join(__dirname, 'views'))
-.set('view engine', 'ejs')
-.get('/cart.js', (req, res) => res.sendFile(__dirname + '/public/cart_function.js'))
+// Draft Order function
+function draftOrder(lineJSON) {
+    var settings = {
+        "url": storeURL+"api/"+apiVersion+"/draft_orders.json",
+        "method": "POST",
+        "headers": {
+            "X-Shopify-Access-Token": apiPass,
+            "Content-Type": "application/json",
+            "Authorization": orderAuth,
 
- .get('/production/cart.js', (req, res) => {
-        res.render('/public/cart_function.js', {client_key : client_key},{client_pass : client_pass}, {orderKey : orderKey} );
-    })
-.post("/cart.js", (req, res) => {
-        var key,
-        pass,
-        order,
-        newKey = {key: client_key},
-        newPass = {key: client_pass},
-        orderKey = {key: order_auth};
-        
-        key.push(newKey);
-pass.push(newPass);
-order.push(orderKey);
+        },
+        "data": JSON.stringify({ "draft_order": { "line_items": lineJSON } }),
+    };
 
-        res.redirect("/cart.js");
-    })
-.listen(PORT, () => console.log(`Listening on ${ PORT }`))
+    $.ajax(settings).done(function(response) {
+        window.location.href = response.draft_order.invoice_url;
+    });
+}
 
-require('dotenv').config()
+var port = 8000;
+var app = express(); //Initialize the app
 
-console.log('Server listening on port 9000');
+
+//Configure the settings of the app
+app.configure(function () {
+    app.use(cors()); // Enables CORS
+    app.use(express.bodyParser()); //Parses the POST data for each request
+    app.use(express.cookieParser()); //Parses the Cookie data for each request
+    app.use(logger); //Tells the app to send all requests through the 'logger' function
+    app.use(app.router); //Tells the app to use the router
+    app.use(express.static('/public')); //Tells the app to serve static files from ./public_html/
+});
+
+//Example of a dynamic get handler
+app.get('/draft_order', function(req, res) {
+    res.setHeader('Content-Type', 'text/plain'); //Tell the client you are sending plain text
+    res.end(req.cookies);
+    var lineJSON = req.body.content;
+    draftOrder(lineJSON)
+    console.log(req.body.content);
+});
+
+//Example of a dynamic post handler
+app.post('/dynamicfile.txt', function(req, res) {
+    res.setHeader('Content-Type', 'text/plain'); //Tell the client you are sending plain text
+    res.write('Posted data to server: '); //Send data to the client
+    res.end(req.body); //Send the post data to the client and end the request
+});
+
+app.listen(port); //Listen on the specified port
+console.log('Listening on port ' + port); //Write to the console
