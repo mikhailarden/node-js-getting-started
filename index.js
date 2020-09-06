@@ -19,6 +19,7 @@ var apiVersion = "2020-07";
     
     var apiPass = process.env.BASIC_AUTH;
     var clientPass = process.env.CLIENT_PASS;
+    var productAuth = process.env.CLIENT_KEY; // confusing naming convention.
     
 //Runs every time a request is recieved
 function logger(req, res, next) {
@@ -42,15 +43,36 @@ function draftOrder(lineJSON) {
     
     axios(config)
     .then(function (response) {
-    var responseJSON = JSON.stringify(response.data);
       console.log(JSON.stringify(response.data));
-      res.end(responseJSON);
     })
     .catch(function (error) {
       console.log(error);
       res.end(error);
     });
+}
+
+function productRead(product_id){
+
+    var data = product_id;
+    var config = {
+      method: 'get',
+      url: storeURL+'api/'+apiVersion+'/products/'+product_id+'.json',
+      headers: { 
+        'Content-Type': 'application/json', 
+        'Authorization': productAuth
+      },
+      data : data
+    };
     
+    axios(config)
+    .then(function (response) {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch(function (error) {
+      console.log(error);
+      res.end(error);
+    });
+
 }
 
 var port = 8000;
@@ -77,6 +99,19 @@ console.log('Page is active')
     draftOrder(lineJSON)
     console.log(req.body);
     console.log('This is the full:' + req);
+    res.end(req.cookies);
+})
+
+
+app.route('/read_product')
+.get(function(req, res) {
+console.log('Page is active')
+    res.setHeader('Content-Type', 'text/plain'); //Tell the client you are sending plain text
+    res.end(req.cookies);
+})
+.post(function(req, res) {
+    var product_id = req.body;
+    productRead(product_id)
     res.end(req.cookies);
 })
 
