@@ -17,6 +17,8 @@ var apiVersion = "2020-07";
     
     var apiPass = process.env.BASIC_AUTH;
     var orderAuth = process.env.CLIENT_PASS;
+    
+    
 
 
 //Runs every time a request is recieved
@@ -55,6 +57,7 @@ app.route('/draft_order')
 console.log('Page is active')
     res.setHeader('Content-Type', 'text/plain'); //Tell the client you are sending plain text
     res.end(req.cookies);
+    console.log(process.env.BASIC_AUTH)
    
 })
 .post(function(req, res) {
