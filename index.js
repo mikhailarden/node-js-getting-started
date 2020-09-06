@@ -61,7 +61,6 @@ console.log('Page is active')
 .post(function(req, res) {
 
     var lineJSON = req.body;
-    var returnjson;
     
     var data = JSON.stringify({"draft_order":{"line_items":lineJSON}});
     var config = {
@@ -77,11 +76,9 @@ console.log('Page is active')
     
     axios(config)
     .then(function (response) {
-        lineJSON = response;
-        res.send(lineJSON)
+        res.send(response)
     })
     .catch(function (error) {
-        lineJSON = error;
         res.send(error)
     });
 });
