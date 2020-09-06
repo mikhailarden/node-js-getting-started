@@ -43,11 +43,9 @@ function draftOrder(lineJSON) {
     
     axios(config)
     .then(function (response) {
-        res.sendStatus(200)
         res.send(response.data)
     })
     .catch(function (error) {
-        res.sendStatus(403)
       console.log(error);
       res.send(error)
       res.end(error);
