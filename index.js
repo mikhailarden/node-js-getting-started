@@ -7,7 +7,6 @@
 const express = require('express'); //Require the Express Module
 const cors = require('cors') // Cors
 const PORT = process.env.PORT || 5000;
-const bodyParser = require('body-parser');
 
 // Config modules
 
@@ -41,6 +40,9 @@ function draftOrder(lineJSON) {
         },
         "data": JSON.stringify({ "draft_order": { "line_items": lineJSON } }),
     };
+    $.ajax(settings).done(function (response) {
+       console.log(response)
+      });
 }
 
 var port = 8000;
@@ -50,7 +52,6 @@ var app = express(); //Initialize the app
 
 //Configure the settings of the app
 app.use(cors()); // Enables CORS
-app.use(bodyParser);
 app.use(logger); //Tells the app to send all requests through the 'logger' function
 app.use(express.static('/public')); //Tells the app to serve static files from ./public_html/
 
