@@ -112,7 +112,6 @@ console.log('Page is active')
 .post(function(req, res) {
     var product_id = req.product_id;
     console.log(req)
-    // productRead(product_id)
     res.end(req.cookies);
 })
 
