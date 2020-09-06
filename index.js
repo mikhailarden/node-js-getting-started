@@ -4,8 +4,9 @@
 ***********************************/
 
 //Load node.js modules
-var express = require('express'); //Require the Express Module
-var cors = require('cors') // Cors
+const express = require('express'); //Require the Express Module
+const cors = require('cors') // Cors
+const PORT = process.env.PORT || 5000;
 
 // Config modules
 
@@ -37,10 +38,6 @@ function draftOrder(lineJSON) {
         },
         "data": JSON.stringify({ "draft_order": { "line_items": lineJSON } }),
     };
-
-    $.ajax(settings).done(function(response) {
-        window.location.href = response.draft_order.invoice_url;
-    });
 }
 
 var port = 8000;
@@ -54,6 +51,7 @@ app.use(express.static('/public')); //Tells the app to serve static files from .
 
 //Example of a dynamic get handler
 app.get('/draft_order', function(req, res) {
+console.log('Page is active')
     res.setHeader('Content-Type', 'text/plain'); //Tell the client you are sending plain text
     res.end(req.cookies);
     var lineJSON = req.body.content;
