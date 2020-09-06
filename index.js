@@ -61,9 +61,4 @@ app.get('/draft_order', function(req, res) {
     console.log(req.body.content);
 });
 
-//Example of a dynamic post handler
-app.post('/dynamicfile.txt', function(req, res) {
-    res.setHeader('Content-Type', 'text/plain'); //Tell the client you are sending plain text
-    res.write('Posted data to server: '); //Send data to the client
-    res.end(req.body); //Send the post data to the client and end the request
-});
+app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
