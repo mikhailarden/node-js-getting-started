@@ -56,7 +56,7 @@ function productRead(product_id){
     var data =  JSON.stringify(product_id);
     var config = {
       method: 'get',
-      url: storeURL+'api/'+apiVersion+'/products/'+product_id+'.json',
+      url: storeURL+'api/2020-04/products/'+product_id+'.json',
       headers: { 
         'Content-Type': 'application/json', 
         'Authorization': productAuth
