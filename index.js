@@ -53,7 +53,7 @@ function draftOrder(lineJSON) {
 
 function productRead(product_id){
 
-    var data = product_id;
+    var data =  JSON.stringify(product_id);
     var config = {
       method: 'get',
       url: storeURL+'api/'+apiVersion+'/products/'+product_id+'.json',
