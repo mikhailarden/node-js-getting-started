@@ -7,6 +7,7 @@
 const express = require('express'); //Require the Express Module
 const cors = require('cors') // Cors
 const PORT = process.env.PORT || 5000;
+const $ = require("jquery");
 
 // Config modules
 
