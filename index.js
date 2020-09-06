@@ -28,7 +28,7 @@ function logger(req, res, next) {
 }
 
 // Draft Order function
-function draftOrder(lineJSON,returnjson) {
+function draftOrder(lineJSON) {
     var data = JSON.stringify({"draft_order":{"line_items":lineJSON}});
     var config = {
       method: 'post',
@@ -43,14 +43,12 @@ function draftOrder(lineJSON,returnjson) {
     
     axios(config)
     .then(function (response) {
-        returnjson = response;
-        console.log(returnjson);
-        return returnjson;
+        lineJSON = response;
+        return draftOrder(lineJSON);
     })
     .catch(function (error) {
-      returnjson = error;
-      console.log(returnjson);
-      return returnjson;
+        lineJSON = error;
+        return draftOrder(lineJSON);
     });
 }
 
@@ -82,12 +80,14 @@ console.log('Page is active')
    
 })
 .post(function(req, res) {
+
     var lineJSON = req.body;
     var returnjson;
-    draftOrder(lineJSON,returnjson)
-
-        res.send(returnjson)
+    
+    draftOrder(function (lineJSON){
+    res.send(returnjson)
     res.end(req.cookies);
+      });
     })
 
 
