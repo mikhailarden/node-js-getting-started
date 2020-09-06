@@ -28,7 +28,31 @@ function logger(req, res, next) {
 }
 
 // Draft Order function
-
+function draftOrder(lineJSON,returnjson) {
+    var data = JSON.stringify({"draft_order":{"line_items":lineJSON}});
+    var config = {
+      method: 'post',
+      url: storeURL+'api/'+apiVersion+'/draft_orders.json',
+      headers: { 
+        'X-Shopify-Access-Token': clientPass, 
+        'Content-Type': 'application/json', 
+        'Authorization': apiPass
+      },
+      data : data
+    };
+    
+    axios(config)
+    .then(function (response) {
+        returnjson = response;
+        console.log(returnjson);
+        return returnjson;
+    })
+    .catch(function (error) {
+      returnjson = error;
+      console.log(returnjson);
+      return returnjson;
+    });
+}
 
 
 var port = 8000;
@@ -53,31 +77,7 @@ console.log('Page is active')
 .post(function(req, res) {
     var lineJSON = req.body;
     var returnjson;
-    
-    var data = JSON.stringify({"draft_order":{"line_items":lineJSON}});
-    var config = {
-      method: 'post',
-      url: storeURL+'api/'+apiVersion+'/draft_orders.json',
-      headers: { 
-        'X-Shopify-Access-Token': clientPass, 
-        'Content-Type': 'application/json', 
-        'Authorization': apiPass
-      },
-      data : data
-    };
-    
-    axios(config)
-    .then(function (response) {
-        returnjson = response;
-        res.send(returnjson)
-    })
-    .catch(function (error) {
-      console.log(error);
-      returnjson = response;
-      res.send(returnjson)
-    });
-    
-    
+    draftOrder(lineJSON,returnjson)  => res.send(returnjson)
     res.end(req.cookies);
 })
 
