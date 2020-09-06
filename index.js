@@ -48,6 +48,7 @@ function draftOrder(lineJSON) {
     .catch(function (error) {
       console.log(error);
       returnjson = response;
+      return returnjson;
     });
 }
 
