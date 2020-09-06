@@ -52,6 +52,7 @@ var app = express(); //Initialize the app
 app.use(cors()); // Enables CORS
 app.use(logger); //Tells the app to send all requests through the 'logger' function
 app.use(express.static('/public')); //Tells the app to serve static files from ./public_html/
+app.use(express.json());
 
 //Example of a dynamic get handler
 app.route('/draft_order')
