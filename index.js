@@ -7,6 +7,7 @@
 const express = require('express'); //Require the Express Module
 const cors = require('cors') // Cors
 const PORT = process.env.PORT || 5000;
+const bodyParser = require('body-parser');
 
 // Config modules
 
@@ -46,8 +47,10 @@ var port = 8000;
 var app = express(); //Initialize the app
 
 
+
 //Configure the settings of the app
 app.use(cors()); // Enables CORS
+app.use(bodyParser);
 app.use(logger); //Tells the app to send all requests through the 'logger' function
 app.use(express.static('/public')); //Tells the app to serve static files from ./public_html/
 
@@ -62,10 +65,9 @@ console.log('Page is active')
 })
 .post(function(req, res) {
     var lineJSON = req.body;
-    res.setHeader('Content-Type', 'text/plain'); //Tell the client you are sending plain text
-    res.end(req.cookies);
     draftOrder(lineJSON)
     console.log(req.body);
+    res.end(req.cookies);
 })
 
 
