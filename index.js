@@ -67,6 +67,3 @@ app.post('/dynamicfile.txt', function(req, res) {
     res.write('Posted data to server: '); //Send data to the client
     res.end(req.body); //Send the post data to the client and end the request
 });
-
-app.listen(port); //Listen on the specified port
-console.log('Listening on port ' + port); //Write to the console
