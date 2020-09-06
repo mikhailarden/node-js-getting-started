@@ -43,37 +43,17 @@ function draftOrder(lineJSON) {
     
     axios(config)
     .then(function (response) {
-      console.log(JSON.stringify(response.data));
+        res.sendStatus(200)
+        res.send(response.data)
     })
     .catch(function (error) {
+        res.sendStatus(403)
       console.log(error);
+      res.send(error)
       res.end(error);
     });
 }
 
-function productRead(product_id){
-
-    var data =  product_id;
-    var config = {
-      method: 'get',
-      url: storeURL+'api/2020-04/products/'+product_id+'.json',
-      headers: { 
-        'Content-Type': 'application/json', 
-        'Authorization': productAuth
-      },
-      data : data
-    };
-    
-    axios(config)
-    .then(function (response) {
-      console.log(JSON.stringify(response.data));
-    })
-    .catch(function (error) {
-      console.log(error);
-      res.end(error);
-    });
-
-}
 
 var port = 8000;
 var app = express(); //Initialize the app
@@ -99,19 +79,6 @@ console.log('Page is active')
     draftOrder(lineJSON)
     console.log(req.body);
     console.log('This is the full:' + req);
-    res.end(req.cookies);
-})
-
-
-app.route('/read_product')
-.get(function(req, res) {
-console.log('Page is active')
-    res.setHeader('Content-Type', 'text/plain'); //Tell the client you are sending plain text
-    res.end(req.cookies);
-})
-.post(function(req, res) {
-    var product_id = req.product_id;
-    console.log(req)
     res.end(req.cookies);
 })
 
