@@ -76,10 +76,10 @@ console.log('Page is active')
     
     axios(config)
     .then(function (response) {
-        res.send(response)
+        res.json(response)
     })
     .catch(function (error) {
-        res.send(error)
+        res.json(error)
     });
 });
 
