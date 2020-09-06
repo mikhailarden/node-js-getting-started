@@ -29,27 +29,6 @@ function logger(req, res, next) {
 
 // Draft Order function
 function draftOrder(lineJSON) {
-    var data = JSON.stringify({"draft_order":{"line_items":lineJSON}});
-    var config = {
-      method: 'post',
-      url: storeURL+'api/'+apiVersion+'/draft_orders.json',
-      headers: { 
-        'X-Shopify-Access-Token': clientPass, 
-        'Content-Type': 'application/json', 
-        'Authorization': apiPass
-      },
-      data : data
-    };
-    
-    axios(config)
-    .then(function (response) {
-        lineJSON = response;
-        return draftOrder(lineJSON);
-    })
-    .catch(function (error) {
-        lineJSON = error;
-        return draftOrder(lineJSON);
-    });
 }
 
 
@@ -84,11 +63,27 @@ console.log('Page is active')
     var lineJSON = req.body;
     var returnjson;
     
-    draftOrder(function (lineJSON){
-    res.send(returnjson)
-    res.end(req.cookies);
-      });
+    var data = JSON.stringify({"draft_order":{"line_items":lineJSON}});
+    var config = {
+      method: 'post',
+      url: storeURL+'api/'+apiVersion+'/draft_orders.json',
+      headers: { 
+        'X-Shopify-Access-Token': clientPass, 
+        'Content-Type': 'application/json', 
+        'Authorization': apiPass
+      },
+      data : data
+    };
+    
+    axios(config)
+    .then(function (response) {
+        lineJSON = response;
+        res.send(lineJSON)
     })
-
+    .catch(function (error) {
+        lineJSON = error;
+        res.send(error)
+    });
+});
 
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
