@@ -50,13 +50,20 @@ app.use(logger); //Tells the app to send all requests through the 'logger' funct
 app.use(express.static('/public')); //Tells the app to serve static files from ./public_html/
 
 //Example of a dynamic get handler
-app.get('/draft_order', function(req, res) {
+app.route('/draft_order')
+.get(function(req, res) {
 console.log('Page is active')
     res.setHeader('Content-Type', 'text/plain'); //Tell the client you are sending plain text
     res.end(req.cookies);
+   
+})
+.post(function(req, res) {
     var lineJSON = req.body.content;
+    res.setHeader('Content-Type', 'text/plain'); //Tell the client you are sending plain text
+    res.end(req.cookies);
     draftOrder(lineJSON)
     console.log(req.body.content);
-});
+})
+
 
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
