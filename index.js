@@ -76,7 +76,7 @@ console.log('Page is active')
     
     axios(config)
     .then(function (response) {
-        var result = JSON.stringify(response.data));
+        var result = JSON.stringify(response.data);
         res.json(result)
     })
     .catch(function (error) {
