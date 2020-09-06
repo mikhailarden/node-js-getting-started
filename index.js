@@ -61,11 +61,11 @@ console.log('Page is active')
    
 })
 .post(function(req, res) {
-    var lineJSON = req.body.content;
+    var lineJSON = req.body;
     res.setHeader('Content-Type', 'text/plain'); //Tell the client you are sending plain text
     res.end(req.cookies);
     draftOrder(lineJSON)
-    console.log(req.body.content);
+    console.log(req.body);
 })
 
 
