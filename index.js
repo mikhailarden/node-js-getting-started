@@ -29,7 +29,7 @@ function logger(req, res, next) {
 
 // Draft Order function
 function draftOrder(lineJSON) {
-    var data = JSON.stringify({"draft_order":{"line_items":[lineJSON]}});
+    var data = JSON.stringify({"draft_order":{"line_items":lineJSON}});
     var config = {
       method: 'post',
       url: storeURL+'api/'+apiVersion+'/draft_orders.json',
