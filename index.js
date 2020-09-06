@@ -20,9 +20,6 @@ var apiVersion = "2020-07";
     var apiPass = process.env.BASIC_AUTH;
     var clientPass = process.env.CLIENT_PASS;
     
-    
-
-
 //Runs every time a request is recieved
 function logger(req, res, next) {
     console.log('Request from: ' + req.ip + ' For: ' + req.path); //Log the request to the console
@@ -45,10 +42,13 @@ function draftOrder(lineJSON) {
     
     axios(config)
     .then(function (response) {
+    var responseJSON = JSON.stringify(response.data);
       console.log(JSON.stringify(response.data));
+      res.end(responseJSON);
     })
     .catch(function (error) {
       console.log(error);
+      res.end(error);
     });
     
 }
@@ -64,7 +64,7 @@ app.use(logger); //Tells the app to send all requests through the 'logger' funct
 app.use(express.static('/public')); //Tells the app to serve static files from ./public_html/
 app.use(express.json());
 
-//Example of a dynamic get handler
+//Dynamic get handler
 app.route('/draft_order')
 .get(function(req, res) {
 console.log('Page is active')
