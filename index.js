@@ -54,7 +54,7 @@ app.route('/inventory')
     location_ids = req.body.locations;
         config = {
             method: 'get',
-            url: 'https://bijoux-medusa.myshopify.com/admin/api/2020-10/inventory_levels.json?inventory_item_ids='+inventoryID+'&location_ids='+location_ids+',
+            url: 'https://bijoux-medusa.myshopify.com/admin/api/2020-10/inventory_levels.json?inventory_item_ids='+inventoryID+'&location_ids='+location_ids,
             headers: {
                 'X-Shopify-Access-Token': accessToken,
                 'Content-Type': 'application/json',
