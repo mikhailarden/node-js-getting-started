@@ -68,7 +68,9 @@ app.route('/inventory')
     res.setHeader('Content-Type', 'application/json'); //Tell the client you are sending plain text
     res.end(req.cookies);
     console.log(req)
-   
+})
+.post(function(req, res) {
+    console.log(req)
 })
 
 app.route('/product')
