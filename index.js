@@ -49,9 +49,55 @@ app.route('/inventory')
         console.log(req)
     })
     .post(function (req, res) {
+        console.log(req.body)
+        var variantID = req.body.product,
+            config = {
+                method: 'get',
+                url: 'https://bijoux-medusa.myshopify.com/admin/api/2020-10/variants/' + variantID + '.json',
+                headers: {
+                    'X-Shopify-Access-Token': accessToken,
+                    'Content-Type': 'application/json',
+                    'Authorization': AuthKey
+                }
+            };
+        axios(config)
+            .then(function (response) {
+                console.log(JSON.stringify(response.data));
+                var result = response.data;
+                res.json(result)
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+    });
 
-
+app.route('/location')
+    .get(function (req, res) {
+        res.setHeader('Content-Type', 'application/json'); //Tell the client you are sending plain text
+        res.end(req.cookies);
+        console.log(req)
     })
+    .post(function (req, res) {
+        console.log(req.body)
+            config = {
+                method: 'get',
+                url: 'https://bijoux-medusa.myshopify.com/admin/api/2020-10/locations.json',
+                headers: {
+                    'X-Shopify-Access-Token': accessToken,
+                    'Content-Type': 'application/json',
+                    'Authorization': AuthKey
+                }
+            };
+        axios(config)
+            .then(function (response) {
+                console.log(JSON.stringify(response.data));
+                var result = response.data;
+                res.json(result)
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+    });
 
 app.route('/product')
     .get(function (req, res) {
