@@ -27,6 +27,8 @@ function logger(req, res, next) {
 
 // Draft Order function
 function productJSON(productID) {
+    var productJSON;
+    
     var config = {
       method: 'get',
       url: 'https://bijoux-medusa.myshopify.com/admin/api/2020-10/products/'+productID+'.json',
@@ -40,6 +42,9 @@ function productJSON(productID) {
     axios(config)
     .then(function (response) {
       console.log(JSON.stringify(response.data));
+      productJSON = JSON.stringify(response.data);
+      
+      return productJSON
     })
     .catch(function (error) {
       console.log(error);
@@ -71,8 +76,7 @@ app.route('/inventory')
 })
 .post(function(req, res) {
 
-    console.log(req.body)
-    res.json({"title":"Mikhail"})
+    
 })
 
 app.route('/product')
@@ -83,22 +87,11 @@ console.log('Page is active')
    
 })
 .post(function(req, res) {
-
-    var lineJSON = req.body;
+    console.log(req.body)
+    var productID = req.body.product;
+    productJSON(productID) 
     
-    var data = JSON.stringify({"draft_order":{"line_items":lineJSON}});
-    var config = {
-      method: 'post',
-      url: storeURL+'api/'+apiVersion+'/draft_orders.json',
-      headers: { 
-        'X-Shopify-Access-Token': clientPass, 
-        'Content-Type': 'application/json', 
-        'Authorization': apiPass
-      },
-      data : data
-    };
-    
-    axios(config)
+    axios(productJSON(productID))
     .then(function (response) {
         var result = JSON.stringify(response.data);
         res.json(result)
