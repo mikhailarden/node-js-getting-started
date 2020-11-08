@@ -75,7 +75,7 @@ app.route('/product')
         axios(config)
             .then(function (response) {
                 console.log(JSON.stringify(response.data));
-                var result = JSON.stringify(response.data);
+                var result = response.data;
                 res.json(result)
             })
             .catch(function (error) {
