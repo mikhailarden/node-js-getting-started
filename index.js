@@ -70,7 +70,9 @@ app.route('/inventory')
     console.log(req)
 })
 .post(function(req, res) {
-    console.log(req)
+
+    console.log(req.body)
+    res.json({"title":"Mikhail"})
 })
 
 app.route('/product')
