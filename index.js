@@ -53,7 +53,7 @@ app.route('/inventory')
         var variantID = req.body.product,
             config = {
                 method: 'get',
-                url: 'https://bijoux-medusa.myshopify.com/admin/api/2020-10/variants/' + variantID + '.json',
+                url: 'https://bijoux-medusa.myshopify.com/admin/api/2020-10/inventory_levels.json?inventory_item_ids='++'&location_ids='',
                 headers: {
                     'X-Shopify-Access-Token': accessToken,
                     'Content-Type': 'application/json',
@@ -73,7 +73,7 @@ app.route('/inventory')
 
 app.route('/location')
     .get(function (req, res) {
-        res.setHeader('Content-Type', 'application/json'); //Tell the client you are sending plain text
+        res.setHeader('Content-Type', 'application/json');
         res.end(req.cookies);
         console.log(req)
     })
