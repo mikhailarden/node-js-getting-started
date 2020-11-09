@@ -49,7 +49,7 @@ app.route('/inventory')
     console.log(req)
 })
 .post(function (req, res) {
-    console.log(req.body)
+    console.log('Request recieved::: Inventory')
     var inventoryID = req.body.inventoryID;
         config = {
             method: 'get',
@@ -62,7 +62,7 @@ app.route('/inventory')
         };
     axios(config)
         .then(function (response) {
-            console.log(JSON.stringify(response.data));
+            console.log('Result sent::: inventory')
             var result = response.data;
             res.json(result)
         })
@@ -78,7 +78,7 @@ app.route('/location')
     console.log(req)
 })
 .post(function (req, res) {
-    console.log(req.body)
+    console.log('Request recieved::: location')
         config = {
             method: 'get',
             url: 'https://bijoux-medusa.myshopify.com/admin/api/2020-10/locations.json',
@@ -90,7 +90,7 @@ app.route('/location')
         };
     axios(config)
         .then(function (response) {
-            console.log(JSON.stringify(response.data));
+            console.log('Result sent::: location')
             var result = response.data;
             res.json(result)
         })
@@ -107,7 +107,7 @@ app.route('/product')
 
 })
 .post(function (req, res) {
-    console.log(req.body)
+    console.log('Request recieved::: Product')
     var productID = req.body.product,
         config = {
             method: 'get',
@@ -120,7 +120,7 @@ app.route('/product')
         };
     axios(config)
         .then(function (response) {
-            console.log(JSON.stringify(response.data));
+            console.log('Result sent::: Product')
             var result = response.data;
             res.json(result)
         })
